@@ -1,7 +1,11 @@
-package com.pablogd.domain.models
+package com.pablogd.data.database.entities
 
-data class TvShow(
-    val id: Int,
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "tvShow")
+data class TvShowEntity(
+    @PrimaryKey(autoGenerate = false) val id: Int,
     val name: String,
     val overview: String,
     val posterPath: String,
