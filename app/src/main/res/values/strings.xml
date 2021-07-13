@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">MoviesApp</string>
+
+    <string name="menu_movies">Peliculas</string>
+    <string name="menu_tv_shows">Series</string>
+    <string name="menu_search">Buscar</string>
+    <string name="menu_settings">Configuración</string>
+
+    <string name="detail_original_language">Lenguaje original: </string>
+    <string name="detail_original_title">Titulo original: </string>
+    <string name="detail_release_date">Fecha de lanzamiento: </string>
+    <string name="detail_popularity">Popularidad: </string>
+    <string name="detail_vote_average">Promedio de popularidad: </string>
+
 </resources>
