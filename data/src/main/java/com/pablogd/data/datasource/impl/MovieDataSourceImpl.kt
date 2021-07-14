@@ -27,7 +27,7 @@ class MovieDataSourceImpl(
             .map { it.toDomain() }
 
     override suspend fun getVideos(movieId: Int): List<Video> =
-        moviesApiConfig.service.getMovieVideos(apiKey, movieId)
+        moviesApiConfig.service.getMovieVideos(movieId, apiKey)
             .results
             .map { it.toDomain() }
 

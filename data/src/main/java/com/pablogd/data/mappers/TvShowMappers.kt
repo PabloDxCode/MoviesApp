@@ -22,7 +22,7 @@ fun TvShowModel.toDomain(): TvShow = TvShow(
 )
 
 fun TvShow.toTvShowEntity(): TvShowEntity = TvShowEntity(
-    this.id,
+    this.tvShowId,
     this.name,
     this.overview,
     this.posterPath,

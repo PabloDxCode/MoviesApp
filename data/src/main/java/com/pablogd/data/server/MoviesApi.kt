@@ -27,10 +27,10 @@ interface MoviesApi {
         @Query("query") query: String
     ): MovieResponse
 
-    @GET("/movie/{id}/videos?language=es-MX")
+    @GET("movie/{id}/videos?language=es-MX")
     suspend fun getMovieVideos(
-        @Query("api_key") apiKey: String,
-        @Path("id") id: Int
+        @Path("id") id: Int,
+        @Query("api_key") apiKey: String
     ): VideosResponse
 
     @GET("tv/popular?language=es-MX&region=MX")
@@ -51,10 +51,10 @@ interface MoviesApi {
         @Query("query") query: String
     ): TvShowsResponse
 
-    @GET("/tv/{id}/videos?language=es-MX")
+    @GET("tv/{id}/videos?language=es-MX")
     suspend fun getTvShowVideos(
-        @Query("api_key") apiKey: String,
-        @Path("id") id: Int
+        @Path("id") id: Int,
+        @Query("api_key") apiKey: String
     ): VideosResponse
 
 }

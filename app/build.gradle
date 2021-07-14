@@ -6,10 +6,12 @@ plugins {
 
 def MOVIE_DB_NAME = '"' + dbName + '"' ?: '"NO MOVIE DB NAME"'
 def MOVIES_API_KEY = '"' + apiKey + '"' ?: '"NO MOVIES API KEY"'
+def GOOGLE_API_KEY = googleApiKey ?: '"NO GOOGLE API KEY"'
 
 android.buildTypes.each { type ->
     type.buildConfigField 'String', 'MOVIE_DB_NAME', MOVIE_DB_NAME
     type.buildConfigField 'String', 'MOVIES_API_KEY', MOVIES_API_KEY
+    type.resValue 'string', 'google_api_key', GOOGLE_API_KEY
 }
 
 android {
@@ -50,6 +52,8 @@ android {
 }
 
 dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -76,6 +80,8 @@ dependencies {
     implementation 'org.koin:koin-android:2.2.2'
 
     implementation 'com.github.orangegangsters:swipy:1.2.3@aar'
+
+    implementation fileTree(dir: 'libs', include: 'YouTubeAndroidPlayerApi.jar')
 
     implementation project(":domain")
     implementation project(":data")

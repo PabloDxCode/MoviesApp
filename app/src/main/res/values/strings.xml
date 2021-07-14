@@ -6,10 +6,16 @@
     <string name="menu_search">Buscar</string>
     <string name="menu_settings">Configuración</string>
 
+    <string name="detail_without_overview">Sin descripción</string>
     <string name="detail_original_language">Lenguaje original: </string>
     <string name="detail_original_title">Titulo original: </string>
     <string name="detail_release_date">Fecha de lanzamiento: </string>
     <string name="detail_popularity">Popularidad: </string>
     <string name="detail_vote_average">Promedio de popularidad: </string>
+    <string name="detail_videos_title">Videos</string>
+    <string name="detail_see_video">Ver</string>
+    <string name="detail_without_videos">Sin videos</string>
+
+    <string name="youtube_player_error">Error al cargar video</string>
 
 </resources>

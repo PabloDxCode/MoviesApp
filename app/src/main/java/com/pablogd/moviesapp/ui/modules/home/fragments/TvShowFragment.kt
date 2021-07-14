@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection
+import com.pablogd.domain.enums.SectionEnum
 import com.pablogd.domain.models.TvShow
 import com.pablogd.moviesapp.R
 import com.pablogd.moviesapp.databinding.FragmentTvShowsBinding
@@ -16,6 +17,7 @@ import com.pablogd.moviesapp.ui.base.BaseFragment
 import com.pablogd.moviesapp.ui.modules.detail.activities.DetailActivity
 import com.pablogd.moviesapp.ui.modules.home.adapters.TvShowsAdapter
 import com.pablogd.moviesapp.ui.modules.home.viewmodels.TvShowsViewModel
+import com.pablogd.moviesapp.ui.modules.searchable.activities.SearchableActivity
 import com.pablogd.moviesapp.ui.utils.PreferencesUtils
 import com.pablogd.moviesapp.ui.utils.setUpAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,7 +36,7 @@ class TvShowFragment : BaseFragment(R.layout.fragment_tv_shows),
     private var pair: Pair<View, String>? = null
 
     private val movieAction: (TvShow, View) -> Unit = { tvShow, view ->
-        pair = Pair(view, "poster")
+        pair = Pair(view, DetailActivity.POSTER_TRANSITION_KEY)
         viewModel.saveItemClicked(tvShow)
     }
 
@@ -135,7 +137,10 @@ class TvShowFragment : BaseFragment(R.layout.fragment_tv_shows),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.menu_search -> {
-
+            val intent = Intent(requireContext(), SearchableActivity::class.java)
+            intent.putExtra(SearchableActivity.SECTION_KEY, SectionEnum.TV_SHOWS.name)
+            startActivity(intent)
+            requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             true
         }
         else -> super.onOptionsItemSelected(item)

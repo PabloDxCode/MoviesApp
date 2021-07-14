@@ -9,11 +9,13 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection
+import com.pablogd.domain.enums.SectionEnum
 import com.pablogd.domain.models.Movie
 import com.pablogd.moviesapp.R
 import com.pablogd.moviesapp.databinding.FragmentMoviesBinding
 import com.pablogd.moviesapp.ui.base.BaseFragment
 import com.pablogd.moviesapp.ui.modules.detail.activities.DetailActivity
+import com.pablogd.moviesapp.ui.modules.searchable.activities.SearchableActivity
 import com.pablogd.moviesapp.ui.modules.home.adapters.MoviesAdapter
 import com.pablogd.moviesapp.ui.modules.home.viewmodels.MoviesViewModel
 import com.pablogd.moviesapp.ui.utils.PreferencesUtils
@@ -33,7 +35,7 @@ class MoviesFragment : BaseFragment(R.layout.fragment_movies), AdapterView.OnIte
     private var pair: Pair<View, String>? = null
 
     private val movieAction: (Movie, View) -> Unit = { movie, view ->
-        pair = Pair(view, "poster")
+        pair = Pair(view, DetailActivity.POSTER_TRANSITION_KEY)
         viewModel.saveItemClicked(movie)
     }
 
@@ -134,7 +136,10 @@ class MoviesFragment : BaseFragment(R.layout.fragment_movies), AdapterView.OnIte
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.menu_search -> {
-
+            val intent = Intent(requireContext(), SearchableActivity::class.java)
+            intent.putExtra(SearchableActivity.SECTION_KEY, SectionEnum.MOVIES.name)
+            startActivity(intent)
+            requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             true
         }
         else -> super.onOptionsItemSelected(item)

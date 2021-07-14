@@ -7,6 +7,7 @@ import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import com.pablogd.domain.models.Detail
 import com.pablogd.moviesapp.R
+import com.pablogd.moviesapp.ui.utils.notNull
 
 class DetailInfoView @JvmOverloads constructor(
     context: Context,
@@ -16,17 +17,17 @@ class DetailInfoView @JvmOverloads constructor(
 
     fun setDetail(movie: Detail) = with(movie) {
         text = buildSpannedString {
-            originalTitle?.let {
+            if(originalTitle.notNull().isNotEmpty()){
                 bold { append(context.getString(R.string.detail_original_title)) }
-                appendLine(it)
+                appendLine(originalTitle)
             }
 
             bold { append(context.getString(R.string.detail_original_language)) }
             appendLine(originalLanguage)
 
-            releaseDate?.let {
+            if(releaseDate.notNull().isNotEmpty()){
                 bold { append(context.getString(R.string.detail_release_date)) }
-                appendLine(it)
+                appendLine(releaseDate)
             }
 
             bold { append(context.getString(R.string.detail_popularity)) }

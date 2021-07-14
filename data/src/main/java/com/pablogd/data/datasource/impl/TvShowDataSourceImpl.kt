@@ -31,7 +31,7 @@ class TvShowDataSourceImpl(
 
     @Throws
     override suspend fun getVideos(tvShowId: Int): List<Video> =
-        moviesApiConfig.service.getMovieVideos(apiKey, tvShowId)
+        moviesApiConfig.service.getTvShowVideos(tvShowId, apiKey)
             .results
             .map { it.toDomain() }
 

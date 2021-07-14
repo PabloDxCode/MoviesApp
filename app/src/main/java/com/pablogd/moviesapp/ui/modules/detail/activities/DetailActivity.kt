@@ -21,7 +21,9 @@ class DetailActivity : BaseActivity() {
 
     companion object {
 
-        const val DETAIL_MODEL = "detailModel"
+        const val POSTER_TRANSITION_KEY = "poster"
+
+        const val DETAIL_MODEL_KEY = "detailModel"
 
     }
 
@@ -52,16 +54,17 @@ class DetailActivity : BaseActivity() {
     private fun fillDetailInfo(detail: Detail) {
         binding.ivPoster.apply {
             Glide.with(context)
-                .load("https://image.tmdb.org/t/p/w500${detail.backdropPath}")
+                .load("https://image.tmdb.org/t/p/w780${detail.backdropPath}")
                 .placeholder(R.drawable.ic_placeholder)
                 .into(this)
         }
         binding.toolbar.title = detail.title
-        binding.tvDetail.text = detail.detail
+        binding.tvDetail.text =
+            if (detail.detail.isEmpty()) getString(R.string.detail_without_overview) else detail.detail
         binding.tvDetailInfoView.setDetail(detail)
 
         val bundle = Bundle()
-        bundle.putSerializable(DETAIL_MODEL, detail)
+        bundle.putSerializable(DETAIL_MODEL_KEY, detail)
         val fragment = if (detail.section == SectionEnum.MOVIES.ordinal) {
             MovieDetailFragment.newInstance(bundle)
         } else {

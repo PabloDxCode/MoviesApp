@@ -51,8 +51,8 @@ class MoviesAdapter(
                     .load("https://image.tmdb.org/t/p/w185${movie.posterPath}")
                     .placeholder(R.drawable.ic_placeholder)
                     .into(this)
-                tvTitle.text = movie.title
             }
+            tvTitle.text = movie.title
             cvMovie.setOnClickListener { listener.invoke(movie, ivPoster) }
         }
 

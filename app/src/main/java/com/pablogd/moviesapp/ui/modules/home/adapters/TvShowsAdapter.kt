@@ -51,8 +51,8 @@ class TvShowsAdapter(
                     .load("https://image.tmdb.org/t/p/w185${tvShow.posterPath}")
                     .placeholder(R.drawable.ic_placeholder)
                     .into(this)
-                tvTitle.text = tvShow.overview
             }
+            tvTitle.text = tvShow.overview
             cvMovie.setOnClickListener { listener.invoke(tvShow, ivPoster) }
         }
 

@@ -29,5 +29,5 @@ val dataModule = module {
 
     factory<MoviesRepository> { MoviesRepositoryImpl(get(), get()) }
     factory<TvShowsRepository> { TvShowsRepositoryImpl(get(), get()) }
-    factory<DetailRepository> { DetailRepositoryImpl(get()) }
+    factory<DetailRepository> { DetailRepositoryImpl(get(), get(), get()) }
 }
