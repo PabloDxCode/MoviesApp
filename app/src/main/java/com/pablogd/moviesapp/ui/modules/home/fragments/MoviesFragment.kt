@@ -67,7 +67,7 @@ class MoviesFragment : BaseFragment(R.layout.fragment_movies), AdapterView.OnIte
         swipyRefreshLayout.setOnRefreshListener {
             swipyRefreshLayout.isRefreshing = false
             when (it) {
-                SwipyRefreshLayoutDirection.TOP -> getMovies(1)
+                //SwipyRefreshLayoutDirection.TOP -> getMovies(1)
                 SwipyRefreshLayoutDirection.BOTTOM -> getMovies()
                 else -> {
                     //Empty else

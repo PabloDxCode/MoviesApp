@@ -68,7 +68,7 @@ class TvShowFragment : BaseFragment(R.layout.fragment_tv_shows),
         swipyRefreshLayout.setOnRefreshListener {
             swipyRefreshLayout.isRefreshing = false
             when (it) {
-                SwipyRefreshLayoutDirection.TOP -> getTvShows(1)
+                //SwipyRefreshLayoutDirection.TOP -> getTvShows(1)
                 SwipyRefreshLayoutDirection.BOTTOM -> getTvShows()
                 else -> {
                     //Empty else
