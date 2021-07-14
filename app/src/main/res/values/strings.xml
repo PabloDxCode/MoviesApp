@@ -16,6 +16,9 @@
     <string name="detail_see_video">Ver</string>
     <string name="detail_without_videos">Sin videos</string>
 
+    <string name="search_favorite_movies">Busca tu pelicula favorita</string>
+    <string name="search_favorite_tv_show">Busca tu Serie favorita</string>
+
     <string name="youtube_player_error">Error al cargar video</string>
 
 </resources>

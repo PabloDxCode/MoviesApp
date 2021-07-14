@@ -3,8 +3,6 @@ package com.pablogd.moviesapp.ui.modules.home.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.util.Pair
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -127,11 +125,6 @@ class MoviesFragment : BaseFragment(R.layout.fragment_movies), AdapterView.OnIte
         binding.spCategories.setSelection(previousSelection, false)
         binding.spCategories.onItemSelectedListener = this
         PreferencesUtils(requireContext()).save(MOVIE_CATEGORY_KEY, previousSelection)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.home_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {

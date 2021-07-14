@@ -2,6 +2,7 @@ package com.pablogd.moviesapp.ui.modules.home.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.navigation.NavigationBarView
 import com.pablogd.moviesapp.R
@@ -29,6 +30,7 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         setSupportActionBar(toolbar)
 
         viewPagerHome.offscreenPageLimit = 3
+        viewPagerHome.setPageTransformer(null)
         viewPagerHome.isUserInputEnabled = false
         viewPagerHome.adapter = HomePagerAdapter(supportFragmentManager, lifecycle,
             arrayListOf(MoviesFragment(), TvShowFragment(), SettingsFragment()))
@@ -45,8 +47,13 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         return false
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.home_menu, menu)
+        return true
+    }
+
     override fun setTitle(title: String) {
-        binding.toolbar.title = title
+        binding.toolbar.title = if(title.isEmpty()) getString(R.string.app_name) else title
     }
 
 }

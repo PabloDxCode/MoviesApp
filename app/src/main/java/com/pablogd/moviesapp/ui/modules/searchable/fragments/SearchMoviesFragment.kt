@@ -7,7 +7,7 @@ import android.view.View
 import androidx.appcompat.widget.SearchView
 import com.pablogd.domain.models.Movie
 import com.pablogd.moviesapp.R
-import com.pablogd.moviesapp.databinding.FragmentSearchMoviesBinding
+import com.pablogd.moviesapp.databinding.FragmentSearchableBinding
 import com.pablogd.moviesapp.ui.base.BaseFragment
 import com.pablogd.moviesapp.ui.modules.detail.activities.DetailActivity
 import com.pablogd.moviesapp.ui.modules.searchable.adapters.SearchMoviesAdapter
@@ -15,10 +15,10 @@ import com.pablogd.moviesapp.ui.modules.searchable.viewmodels.SearchMoviesViewMo
 import com.pablogd.moviesapp.ui.utils.notNull
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchMoviesFragment : BaseFragment(R.layout.fragment_search_movies),
+class SearchMoviesFragment : BaseFragment(R.layout.fragment_searchable),
     SearchView.OnQueryTextListener {
 
-    private lateinit var binding: FragmentSearchMoviesBinding
+    private lateinit var binding: FragmentSearchableBinding
 
     private val adapter: SearchMoviesAdapter by lazy {
         SearchMoviesAdapter(items, listener)
@@ -37,7 +37,7 @@ class SearchMoviesFragment : BaseFragment(R.layout.fragment_search_movies),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentSearchMoviesBinding.bind(view)
+        binding = FragmentSearchableBinding.bind(view)
 
         initViews()
         addObservers()
@@ -46,6 +46,10 @@ class SearchMoviesFragment : BaseFragment(R.layout.fragment_search_movies),
     private fun initViews() = with(binding) {
         rvItems.adapter = adapter
         svItems.setOnQueryTextListener(this@SearchMoviesFragment)
+        tvEmptyList.text = requireActivity().getString(R.string.search_favorite_movies)
+        if(items.isEmpty()){
+            tvEmptyList.visibility = View.VISIBLE
+        }
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -58,6 +62,7 @@ class SearchMoviesFragment : BaseFragment(R.layout.fragment_search_movies),
             items.clear()
             adapter.notifyDataSetChanged()
             binding.rvItems.visibility = View.GONE
+            binding.tvEmptyList.visibility = View.VISIBLE
         }
         return false
     }
@@ -71,7 +76,9 @@ class SearchMoviesFragment : BaseFragment(R.layout.fragment_search_movies),
         when (model) {
             is SearchMoviesViewModel.UiModel.Loading -> showOrHideProgress(model.showProgress)
             is SearchMoviesViewModel.UiModel.Content -> configList(model.movies)
-            is SearchMoviesViewModel.UiModel.Error -> baseView?.showError(model.error)
+            is SearchMoviesViewModel.UiModel.Error -> {
+                // Empty else
+            }
             is SearchMoviesViewModel.UiModel.Navigation -> goDetail()
         }
     }
@@ -80,8 +87,10 @@ class SearchMoviesFragment : BaseFragment(R.layout.fragment_search_movies),
         items.clear()
         if(movies.isEmpty()){
             binding.rvItems.visibility = View.GONE
+            binding.tvEmptyList.visibility = View.VISIBLE
         } else {
             binding.rvItems.visibility = View.VISIBLE
+            binding.tvEmptyList.visibility = View.GONE
             items.addAll(movies.toMutableList())
             adapter.notifyDataSetChanged()
         }
