@@ -17,8 +17,8 @@
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:titleTextColor="@color/colorPrimary" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/container"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerHome"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bnv_home"
