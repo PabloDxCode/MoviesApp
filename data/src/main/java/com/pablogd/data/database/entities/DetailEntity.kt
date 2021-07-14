@@ -14,5 +14,6 @@ data class DetailEntity(
     val originalLanguage: String,
     val releaseDate: String?,
     val popularity: Double,
-    val voteAverage: Double
+    val voteAverage: Double,
+    val section: Int
 )

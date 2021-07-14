@@ -4,6 +4,7 @@ import com.pablogd.data.database.entities.DetailEntity
 import com.pablogd.data.database.entities.MovieEntity
 import com.pablogd.data.models.MovieModel
 import com.pablogd.data.models.VideoModel
+import com.pablogd.domain.enums.SectionEnum
 import com.pablogd.domain.models.Movie
 import com.pablogd.domain.models.Video
 
@@ -61,7 +62,8 @@ fun Movie.toDetailEntity(): DetailEntity = DetailEntity(
     this.originalLanguage,
     this.releaseDate,
     this.popularity,
-    this.voteAverage
+    this.voteAverage,
+    SectionEnum.MOVIES.ordinal
 )
 
 fun VideoModel.toDomain(): Video = Video(

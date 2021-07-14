@@ -12,5 +12,6 @@ fun DetailEntity.toDomain(): Detail = Detail(
     this.originalLanguage,
     this.releaseDate,
     this.popularity,
-    this.voteAverage
+    this.voteAverage,
+    this.section
 )

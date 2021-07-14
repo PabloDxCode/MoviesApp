@@ -1,5 +1,6 @@
 package com.pablogd.domain
 
+import com.pablogd.domain.usescases.detail.GetDetail
 import com.pablogd.domain.usescases.movies.GetMovies
 import com.pablogd.domain.usescases.movies.GetPopularMovies
 import com.pablogd.domain.usescases.movies.GetTopRatedMovies
@@ -20,4 +21,6 @@ val domainModule = module {
     factory { GetPopularTvShows(get()) }
     factory { GetTopRatedTvShows(get()) }
     factory { SaveTvShowDetail(get()) }
+
+    factory { GetDetail(get()) }
 }

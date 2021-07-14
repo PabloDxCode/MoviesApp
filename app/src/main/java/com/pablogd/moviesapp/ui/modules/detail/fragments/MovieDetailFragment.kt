@@ -32,12 +32,6 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetailBinding.bind(view)
-        initViews()
-    }
-
-    private fun initViews() = with(binding) {
-        tvDetail.text = detail.detail
-        tvDetailInfoView.setDetail(detail)
     }
 
 }

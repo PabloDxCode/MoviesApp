@@ -3,6 +3,7 @@ package com.pablogd.data.mappers
 import com.pablogd.data.database.entities.DetailEntity
 import com.pablogd.data.database.entities.TvShowEntity
 import com.pablogd.data.models.TvShowModel
+import com.pablogd.domain.enums.SectionEnum
 import com.pablogd.domain.models.TvShow
 
 fun TvShowModel.toDomain(): TvShow = TvShow(
@@ -59,5 +60,6 @@ fun TvShow.toDetailEntity(): DetailEntity = DetailEntity(
     this.originalLanguage,
     "",
     this.popularity,
-    this.voteAverage
+    this.voteAverage,
+    SectionEnum.TV_SHOWS.ordinal
 )
