@@ -1,9 +1,10 @@
-package com.pablogd.domain.usescases.detail
+package com.pablogd.moviesapp.domain.usecases.detail
 
 import com.nhaarman.mockitokotlin2.whenever
-import com.pablogd.common.mockedDetail
+import com.pablogd.moviesapp.common.mockedDetail
 import com.pablogd.domain.Result
 import com.pablogd.domain.repositories.DetailRepository
+import com.pablogd.domain.usescases.detail.GetDetail
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before

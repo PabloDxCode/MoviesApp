@@ -1,9 +1,10 @@
-package com.pablogd.domain.usescases.tvshows
+package com.pablogd.moviesapp.domain.usecases.tvshows
 
 import com.nhaarman.mockitokotlin2.whenever
-import com.pablogd.common.mockedTvShow
+import com.pablogd.moviesapp.common.mockedTvShow
 import com.pablogd.domain.Result
 import com.pablogd.domain.repositories.DetailRepository
+import com.pablogd.domain.usescases.tvshows.SaveTvShowDetail
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before

@@ -11,7 +11,7 @@ import com.pablogd.data.database.entities.DetailEntity
 import com.pablogd.data.database.entities.MovieEntity
 import com.pablogd.data.database.entities.TvShowEntity
 
-@Database(entities = [MovieEntity::class, TvShowEntity::class, DetailEntity::class], version = 1)
+@Database(entities = [MovieEntity::class, TvShowEntity::class, DetailEntity::class], version = 1, exportSchema = false)
 abstract class MoviesDB : RoomDatabase() {
 
     companion object {

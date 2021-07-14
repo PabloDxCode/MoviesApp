@@ -1,9 +1,6 @@
 package com.pablogd.data.database.daos
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.pablogd.data.database.entities.MovieEntity
 
 @Dao
@@ -18,10 +15,11 @@ interface MovieDao {
     @Query("SELECT COUNT(id) FROM movie")
     fun movieCount(): Int
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertMovies(movies: List<MovieEntity>)
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertMovies(movies: List<MovieEntity>): Array<Long>
 
     @Query("DELETE FROM movie")
-    fun clearMovies()
+    fun clearMovies(): Int
 
 }

@@ -10,18 +10,19 @@ import com.pablogd.moviesapp.ui.modules.searchable.viewmodels.SearchTvShowsViewM
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val presentationModule = module {
-    single<CoroutineDispatcher> { Dispatchers.Main }
+    single(named("iuDispatcher")) { Dispatchers.Main as CoroutineDispatcher }
 
-    viewModel { MoviesViewModel(get(), get(), get(), get(), get()) }
-    viewModel { TvShowsViewModel(get(), get(), get(), get(), get()) }
+    viewModel { MoviesViewModel(get(), get(), get(), get(), get(named("iuDispatcher"))) }
+    viewModel { TvShowsViewModel(get(), get(), get(), get(), get(named("iuDispatcher"))) }
 
-    viewModel { DetailViewModel(get(), get()) }
-    viewModel { MovieDetailViewModel(get(), get()) }
-    viewModel { TvShowDetailViewModel(get(), get()) }
+    viewModel { DetailViewModel(get(), get(named("iuDispatcher"))) }
+    viewModel { MovieDetailViewModel(get(), get(named("iuDispatcher"))) }
+    viewModel { TvShowDetailViewModel(get(), get(named("iuDispatcher"))) }
 
-    viewModel { SearchMoviesViewModel(get(), get(), get()) }
-    viewModel { SearchTvShowsViewModel(get(), get(), get()) }
+    viewModel { SearchMoviesViewModel(get(), get(), get(named("iuDispatcher"))) }
+    viewModel { SearchTvShowsViewModel(get(), get(), get(named("iuDispatcher"))) }
 }

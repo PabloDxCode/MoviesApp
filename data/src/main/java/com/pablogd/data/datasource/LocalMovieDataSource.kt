@@ -6,12 +6,12 @@ interface LocalMovieDataSource {
 
     suspend fun size(): Int
 
-    suspend fun saveMovies(movies: List<Movie>)
+    suspend fun saveMovies(movies: List<Movie>): Array<Long>
 
     suspend fun getMovies(): List<Movie>
 
     suspend fun findById(id: Int): Movie
 
-    suspend fun clearMovies()
+    suspend fun clearMovies(): Int
 
 }

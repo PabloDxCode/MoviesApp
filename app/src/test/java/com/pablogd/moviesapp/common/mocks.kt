@@ -1,4 +1,4 @@
-package com.pablogd.common
+package com.pablogd.moviesapp.common
 
 import com.pablogd.domain.models.Detail
 import com.pablogd.domain.models.Movie
