@@ -8,9 +8,9 @@ import com.pablogd.domain.models.Video
 
 interface DetailRepository {
 
-    suspend fun saveDetail(movie: Movie)
+    suspend fun saveDetail(movie: Movie): Result<Boolean>
 
-    suspend fun saveDetail(tvShow: TvShow)
+    suspend fun saveDetail(tvShow: TvShow): Result<Boolean>
 
     suspend fun getDetail(): Result<Detail>
 

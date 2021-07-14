@@ -13,6 +13,6 @@ interface DetailDao {
     suspend fun getDetail(): DetailEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertDetail(detail: DetailEntity)
+    fun insertDetail(detail: DetailEntity): Long
 
 }

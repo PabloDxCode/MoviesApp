@@ -19,12 +19,14 @@ class DetailRepositoryImpl(
     private val getTvShowDataSource: TvShowDataSource
 ) : DetailRepository {
 
-    override suspend fun saveDetail(movie: Movie) {
-        localDetailDataSource.saveDetail(movie.toDetailEntity())
+    override suspend fun saveDetail(movie: Movie): Result<Boolean> {
+        val result = localDetailDataSource.saveDetail(movie.toDetailEntity())
+        return if(result > 0) Result.Success(true) else Result.Success(false)
     }
 
-    override suspend fun saveDetail(tvShow: TvShow) {
-        localDetailDataSource.saveDetail(tvShow.toDetailEntity())
+    override suspend fun saveDetail(tvShow: TvShow): Result<Boolean> {
+        val result = localDetailDataSource.saveDetail(tvShow.toDetailEntity())
+        return if(result > 0) Result.Success(true) else Result.Success(false)
     }
 
     override suspend fun getDetail(): Result<Detail> =

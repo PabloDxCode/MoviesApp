@@ -10,7 +10,7 @@ class LocalDetailDataSourceImpl(db: MoviesDB): LocalDetailDataSource {
 
     private val detailDao = db.detailDao()
 
-    override suspend fun saveDetail(detail: DetailEntity) = withContext(Dispatchers.IO) {
+    override suspend fun saveDetail(detail: DetailEntity): Long = withContext(Dispatchers.IO) {
         detailDao.insertDetail(detail)
     }
 
