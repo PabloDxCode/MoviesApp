@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.pablogd.data.database.daos.DetailDao
 import com.pablogd.data.database.daos.MovieDao
 import com.pablogd.data.database.daos.TvShowDao
+import com.pablogd.data.database.entities.DetailEntity
 import com.pablogd.data.database.entities.MovieEntity
 import com.pablogd.data.database.entities.TvShowEntity
 
-@Database(entities = [MovieEntity::class, TvShowEntity::class], version = 1)
+@Database(entities = [MovieEntity::class, TvShowEntity::class, DetailEntity::class], version = 1)
 abstract class MoviesDB : RoomDatabase() {
 
     companion object {
@@ -23,5 +25,7 @@ abstract class MoviesDB : RoomDatabase() {
     abstract fun movieDao(): MovieDao
 
     abstract fun tvShowDao(): TvShowDao
+
+    abstract fun detailDao(): DetailDao
 
 }

@@ -1,17 +1,13 @@
 package com.pablogd.data
 
 import com.pablogd.data.database.MoviesDB
-import com.pablogd.data.datasource.LocalMovieDataSource
-import com.pablogd.data.datasource.LocalTvShowDataSource
-import com.pablogd.data.datasource.MovieDataSource
-import com.pablogd.data.datasource.TvShowDataSource
-import com.pablogd.data.datasource.impl.LocalMovieDataSourceImpl
-import com.pablogd.data.datasource.impl.LocalTvShowDataSourceImpl
-import com.pablogd.data.datasource.impl.MovieDataSourceImpl
-import com.pablogd.data.datasource.impl.TvShowDataSourceImpl
+import com.pablogd.data.datasource.*
+import com.pablogd.data.datasource.impl.*
+import com.pablogd.data.repositories.DetailRepositoryImpl
 import com.pablogd.data.repositories.MoviesRepositoryImpl
 import com.pablogd.data.repositories.TvShowsRepositoryImpl
 import com.pablogd.data.server.MoviesApiConfig
+import com.pablogd.domain.repositories.DetailRepository
 import com.pablogd.domain.repositories.MoviesRepository
 import com.pablogd.domain.repositories.TvShowsRepository
 import org.koin.core.qualifier.named
@@ -29,7 +25,9 @@ val dataModule = module {
 
     factory<LocalMovieDataSource> { LocalMovieDataSourceImpl(get()) }
     factory<LocalTvShowDataSource> { LocalTvShowDataSourceImpl(get()) }
+    factory<LocalDetailDataSource> { LocalDetailDataSourceImpl(get()) }
 
     factory<MoviesRepository> { MoviesRepositoryImpl(get(), get()) }
     factory<TvShowsRepository> { TvShowsRepositoryImpl(get(), get()) }
+    factory<DetailRepository> { DetailRepositoryImpl(get()) }
 }

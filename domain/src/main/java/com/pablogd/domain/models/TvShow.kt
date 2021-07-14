@@ -2,6 +2,7 @@ package com.pablogd.domain.models
 
 data class TvShow(
     val id: Int,
+    val tvShowId: Int,
     val name: String,
     val overview: String,
     val posterPath: String,

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "tvShow")
 data class TvShowEntity(
-    @PrimaryKey(autoGenerate = false) val id: Int,
+    val tvShowId: Int,
     val name: String,
     val overview: String,
     val posterPath: String,
@@ -16,4 +16,15 @@ data class TvShowEntity(
     val popularity: Double,
     val voteAverage: Double,
     val voteCount: Int
-)
+){
+
+    @field:PrimaryKey(autoGenerate = true)
+    private var id: Long = 0
+
+    fun getId() = id
+
+    fun setId(id: Long){
+        this.id = id
+    }
+
+}

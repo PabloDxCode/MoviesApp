@@ -7,15 +7,20 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection
 import com.pablogd.domain.models.Movie
 import com.pablogd.moviesapp.R
 import com.pablogd.moviesapp.databinding.FragmentMoviesBinding
 import com.pablogd.moviesapp.ui.base.BaseFragment
 import com.pablogd.moviesapp.ui.modules.detail.activities.DetailActivity
 import com.pablogd.moviesapp.ui.modules.home.adapters.MoviesAdapter
+import com.pablogd.moviesapp.ui.modules.home.viewmodels.MoviesViewModel
+import com.pablogd.moviesapp.ui.utils.PreferencesUtils
 import com.pablogd.moviesapp.ui.utils.setUpAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MoviesFragment: BaseFragment(R.layout.fragment_movies) {
+class MoviesFragment : BaseFragment(R.layout.fragment_movies), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: FragmentMoviesBinding
 
@@ -23,10 +28,17 @@ class MoviesFragment: BaseFragment(R.layout.fragment_movies) {
         MoviesAdapter(movieAction)
     }
 
-    private val movieAction: (Movie, View) ->Unit = { movie, view ->
-        val intent = Intent(requireContext(), DetailActivity::class.java)
-        val pair = Pair(view, "poster")
-        goDetail(intent, pair)
+    private val viewModel: MoviesViewModel by viewModel()
+
+    private var pair: Pair<View, String>? = null
+
+    private val movieAction: (Movie, View) -> Unit = { movie, view ->
+        pair = Pair(view, "poster")
+        viewModel.saveItemClicked(movie)
+    }
+
+    companion object {
+        private const val MOVIE_CATEGORY_KEY = "movie_category"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,24 +50,82 @@ class MoviesFragment: BaseFragment(R.layout.fragment_movies) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMoviesBinding.bind(view)
         initViews()
+        addObservers()
+        viewModel.getMovies()
+
+        binding.spCategories.onItemSelectedListener = this
     }
 
     private fun initViews() = with(binding) {
         spCategories.setUpAdapter(R.array.categories)
+        loadCategory()
         rvMovies.adapter = adapter
-        adapter.items = getMocks()
+
+        swipyRefreshLayout.setDistanceToTriggerSync(50)
+        swipyRefreshLayout.setOnRefreshListener {
+            swipyRefreshLayout.isRefreshing = false
+            when (it) {
+                SwipyRefreshLayoutDirection.TOP -> getMovies(1)
+                SwipyRefreshLayoutDirection.BOTTOM -> getMovies()
+                else -> {
+                    //Empty else
+                }
+            }
+        }
     }
 
-    private fun getMocks(): List<Movie> = arrayListOf(
-        Movie(1, "Title 1", "Description", "12-10-2021", "/tzp6VzED2TBc02bkYoYnQa6r2OK.jpg", "", "English", "Title", 8.4, 400.0, false),
-        Movie(2, "Title 2", "Description", "12-10-2021", "/tzp6VzED2TBc02bkYoYnQa6r2OK.jpg", "", "English", "Title", 8.4, 400.0, false),
-        Movie(3, "Title 3", "Description", "12-10-2021", "/tzp6VzED2TBc02bkYoYnQa6r2OK.jpg", "", "English", "Title", 8.4, 400.0, false),
-        Movie(4, "Title 4", "Description", "12-10-2021", "/tzp6VzED2TBc02bkYoYnQa6r2OK.jpg", "", "English", "Title", 8.4, 400.0, false),
-        Movie(5, "Title 5", "Description", "12-10-2021", "/tzp6VzED2TBc02bkYoYnQa6r2OK.jpg", "", "English", "Title", 8.4, 400.0, false),
-        Movie(6, "Title 6", "Description", "12-10-2021", "/tzp6VzED2TBc02bkYoYnQa6r2OK.jpg", "", "English", "Title", 8.4, 400.0, false),
-        Movie(7, "Title 7", "Description", "12-10-2021", "/tzp6VzED2TBc02bkYoYnQa6r2OK.jpg", "", "English", "Title", 8.4, 400.0, false),
-        Movie(8, "Title 8", "Description", "12-10-2021", "/tzp6VzED2TBc02bkYoYnQa6r2OK.jpg", "", "English", "Title", 8.4, 400.0, false)
-    )
+    private fun loadCategory() {
+        val categoryItemSelected = PreferencesUtils(requireContext()).getInt(MOVIE_CATEGORY_KEY, 0)
+        binding.spCategories.setSelection(categoryItemSelected, false)
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        getMovies(1)
+        PreferencesUtils(requireContext()).save(MOVIE_CATEGORY_KEY, position)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        // Empty method
+    }
+
+    private fun getMovies(page: Int = 0) {
+        if (binding.spCategories.selectedItemPosition == 0) {
+            viewModel.getPopularMovies(page)
+        } else {
+            viewModel.getTopRatedMovies(page)
+        }
+    }
+
+    private fun addObservers() {
+        viewModel.initScope()
+        viewModel.model.observe(viewLifecycleOwner, ::updateUi)
+    }
+
+    private fun updateUi(model: MoviesViewModel.UiModel) {
+        when (model) {
+            is MoviesViewModel.UiModel.Loading -> showOrHideProgress(model.showProgress)
+            is MoviesViewModel.UiModel.Content -> adapter.items = model.movies
+            is MoviesViewModel.UiModel.Error -> baseView?.showError(model.error)
+            is MoviesViewModel.UiModel.Navigation -> goDetail()
+            is MoviesViewModel.UiModel.CategoryError -> restoreLastSelection()
+        }
+    }
+
+    private fun goDetail() {
+        pair?.let {
+            val intent = Intent(requireContext(), DetailActivity::class.java)
+            goDetail(intent, it)
+        }
+    }
+
+    private fun restoreLastSelection() {
+        val currentSelection = binding.spCategories.selectedItemPosition
+        val previousSelection = if (currentSelection == 0) 1 else 0
+        binding.spCategories.onItemSelectedListener = null
+        binding.spCategories.setSelection(previousSelection, false)
+        binding.spCategories.onItemSelectedListener = this
+        PreferencesUtils(requireContext()).save(MOVIE_CATEGORY_KEY, previousSelection)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.home_menu, menu)
@@ -68,6 +138,11 @@ class MoviesFragment: BaseFragment(R.layout.fragment_movies) {
             true
         }
         else -> super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        pair = null
     }
 
 }

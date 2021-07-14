@@ -18,10 +18,11 @@ abstract class BaseFragment(layoutId: Int) : Fragment(layoutId) {
         }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        if (baseView == null) {
-            baseView = null
+    protected fun showOrHideProgress(showProgress: Boolean){
+        if(showProgress){
+            baseView?.showProgress()
+        } else {
+            baseView?.hideProgress()
         }
     }
 
@@ -29,6 +30,13 @@ abstract class BaseFragment(layoutId: Int) : Fragment(layoutId) {
         activity?.let {
             val options = ActivityOptions.makeSceneTransitionAnimation(it, pair)
             it.startActivity(intent, options.toBundle())
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        if (baseView == null) {
+            baseView = null
         }
     }
 

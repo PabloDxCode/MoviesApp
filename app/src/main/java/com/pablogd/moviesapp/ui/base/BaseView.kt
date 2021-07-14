@@ -8,4 +8,6 @@ interface BaseView {
 
     fun setTitle(title: String)
 
+    fun showError(message: String)
+
 }

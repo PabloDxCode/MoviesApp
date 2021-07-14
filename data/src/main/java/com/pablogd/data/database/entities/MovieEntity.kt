@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "movie")
 data class MovieEntity(
-    @PrimaryKey(autoGenerate = false) val id: Int,
+    val movieId: Int,
     val title: String,
     val overview: String,
     val releaseDate: String,
@@ -16,4 +16,15 @@ data class MovieEntity(
     val popularity: Double,
     val voteAverage: Double,
     val favorite: Boolean
-)
+){
+
+    @field:PrimaryKey(autoGenerate = true)
+    private var id: Long = 0
+
+    fun getId() = id
+
+    fun setId(id: Long){
+        this.id = id
+    }
+
+}

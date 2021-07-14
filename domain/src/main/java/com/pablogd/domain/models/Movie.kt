@@ -2,6 +2,7 @@ package com.pablogd.domain.models
 
 data class Movie(
     val id: Int,
+    val movieId: Int,
     val title: String,
     val overview: String,
     val releaseDate: String,

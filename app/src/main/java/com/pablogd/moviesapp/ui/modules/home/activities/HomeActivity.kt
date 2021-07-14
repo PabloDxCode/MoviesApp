@@ -18,13 +18,17 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 
     private lateinit var mFragmentsNavigationFactory: FragmentsNavigationFactory
 
+    private val moviesFragment = MoviesFragment()
+
+    private val tvShowFragment = TvShowFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         mFragmentsNavigationFactory = FragmentsNavigationFactory(supportFragmentManager, R.id.container,
-            savedInstanceState, MoviesFragment(), TvShowFragment(), SettingsFragment())
+            savedInstanceState, moviesFragment, tvShowFragment, SettingsFragment())
         mFragmentsNavigationFactory.start(intent?.extras)
         initViews()
     }
@@ -41,7 +45,7 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
             R.id.menu_tv_shows -> mFragmentsNavigationFactory.changeFragment(1)
             R.id.menu_settings -> mFragmentsNavigationFactory.changeFragment(2)
         }
-        return true
+        return false
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

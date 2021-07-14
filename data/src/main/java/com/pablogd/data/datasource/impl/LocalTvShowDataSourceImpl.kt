@@ -3,20 +3,19 @@ package com.pablogd.data.datasource.impl
 import com.pablogd.data.database.MoviesDB
 import com.pablogd.data.datasource.LocalTvShowDataSource
 import com.pablogd.data.mappers.toDomain
-import com.pablogd.data.mappers.toEntity
+import com.pablogd.data.mappers.toTvShowEntity
 import com.pablogd.domain.models.TvShow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class LocalTvShowDataSourceImpl(db: MoviesDB): LocalTvShowDataSource {
+class LocalTvShowDataSourceImpl(db: MoviesDB) : LocalTvShowDataSource {
 
     private val tvShowDao = db.tvShowDao()
 
-    override suspend fun isEmpty(): Boolean =
-        withContext(Dispatchers.IO) { tvShowDao.tvShowCount() <= 0 }
+    override suspend fun size(): Int = withContext(Dispatchers.IO) { tvShowDao.tvShowCount() }
 
     override suspend fun saveTvShows(tvShows: List<TvShow>) = withContext(Dispatchers.IO) {
-        tvShowDao.insertTvShows(tvShows.map { it.toEntity() })
+        tvShowDao.insertTvShows(tvShows.map { it.toTvShowEntity() })
     }
 
     override suspend fun getTvShows(): List<TvShow> = withContext(Dispatchers.IO) {

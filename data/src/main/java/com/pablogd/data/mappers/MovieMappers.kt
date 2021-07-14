@@ -1,5 +1,6 @@
 package com.pablogd.data.mappers
 
+import com.pablogd.data.database.entities.DetailEntity
 import com.pablogd.data.database.entities.MovieEntity
 import com.pablogd.data.models.MovieModel
 import com.pablogd.data.models.VideoModel
@@ -7,12 +8,13 @@ import com.pablogd.domain.models.Movie
 import com.pablogd.domain.models.Video
 
 fun MovieModel.toDomain(): Movie = Movie(
+    0,
     this.id,
     this.title,
     this.overview,
     this.releaseDate,
     this.posterPath,
-    this.backdropPath?:"",
+    this.backdropPath ?: "",
     this.originalLanguage,
     this.originalTitle,
     this.popularity,
@@ -20,13 +22,13 @@ fun MovieModel.toDomain(): Movie = Movie(
     false
 )
 
-fun Movie.toEntity(): MovieEntity = MovieEntity(
-    this.id,
+fun Movie.toMovieEntity(): MovieEntity = MovieEntity(
+    this.movieId,
     this.title,
     this.overview,
     this.releaseDate,
-    this.posterPath?:"",
-    this.backdropPath?:"",
+    this.posterPath ?: "",
+    this.backdropPath ?: "",
     this.originalLanguage,
     this.originalTitle,
     this.popularity,
@@ -35,7 +37,8 @@ fun Movie.toEntity(): MovieEntity = MovieEntity(
 )
 
 fun MovieEntity.toDomain(): Movie = Movie(
-    this.id,
+    this.getId().toInt(),
+    this.movieId,
     this.title,
     this.overview,
     this.releaseDate,
@@ -46,6 +49,19 @@ fun MovieEntity.toDomain(): Movie = Movie(
     this.popularity,
     this.voteAverage,
     this.favorite
+)
+
+fun Movie.toDetailEntity(): DetailEntity = DetailEntity(
+    1,
+    this.movieId,
+    this.title,
+    this.overview,
+    this.backdropPath ?: "",
+    this.originalTitle,
+    this.originalLanguage,
+    this.releaseDate,
+    this.popularity,
+    this.voteAverage
 )
 
 fun VideoModel.toDomain(): Video = Video(

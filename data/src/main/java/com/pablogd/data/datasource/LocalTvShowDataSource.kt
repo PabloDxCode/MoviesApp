@@ -4,7 +4,7 @@ import com.pablogd.domain.models.TvShow
 
 interface LocalTvShowDataSource {
 
-    suspend fun isEmpty(): Boolean
+    suspend fun size(): Int
 
     suspend fun saveTvShows(tvShows: List<TvShow>)
 
