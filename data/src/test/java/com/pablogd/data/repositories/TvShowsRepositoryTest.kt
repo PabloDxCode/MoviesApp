@@ -66,7 +66,7 @@ class TvShowsRepositoryTest {
             whenever(tvShowDataSource.getPopularTvShows(1)).thenReturn(null)
 
             val result = tvShowsRepository.getTvShows(1)
-            org.junit.Assert.assertEquals(
+            assertEquals(
                 NullPointerException().message,
                 (result as Result.Error).exception.message
             )

@@ -5,7 +5,6 @@ import com.pablogd.data.mappers.toDomain
 import com.pablogd.data.server.MoviesApiConfig
 import com.pablogd.domain.models.TvShow
 import com.pablogd.domain.models.Video
-import java.lang.Exception
 
 class TvShowDataSourceImpl(
     private val apiKey: String, private val moviesApiConfig: MoviesApiConfig

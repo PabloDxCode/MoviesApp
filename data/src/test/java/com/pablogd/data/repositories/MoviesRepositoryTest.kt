@@ -67,7 +67,7 @@ class MoviesRepositoryTest {
             whenever(movieDataSource.getPopularMovies(1)).thenReturn(null)
 
             val result = moviesRepository.getMovies(1)
-            Assert.assertEquals(
+            assertEquals(
                 NullPointerException().message,
                 (result as Result.Error).exception.message
             )

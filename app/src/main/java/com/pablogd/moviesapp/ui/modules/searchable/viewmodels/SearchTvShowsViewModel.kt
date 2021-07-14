@@ -3,9 +3,7 @@ package com.pablogd.moviesapp.ui.modules.searchable.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pablogd.domain.Result
-import com.pablogd.domain.models.Movie
 import com.pablogd.domain.models.TvShow
-import com.pablogd.domain.usescases.movies.SaveMovieDetail
 import com.pablogd.domain.usescases.searchable.SearchTvShows
 import com.pablogd.domain.usescases.tvshows.SaveTvShowDetail
 import com.pablogd.moviesapp.ui.base.ScopedViewModel
