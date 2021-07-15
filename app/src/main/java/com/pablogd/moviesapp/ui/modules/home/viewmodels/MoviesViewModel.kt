@@ -39,7 +39,7 @@ class MoviesViewModel(
         if (result is Result.Success) {
             _model.value = UiModel.Content(result.data)
         } else if (result is Result.Error) {
-            _model.value = result.exception.message?.let { UiModel.Error(it) }
+            _model.value = UiModel.Error(result.exception.message ?: "")
         }
     }
 
@@ -48,10 +48,10 @@ class MoviesViewModel(
         if (result is Result.Success) {
             _model.value = UiModel.Content(result.data)
         } else if (result is Result.Error) {
-            if(result.exception.message == ServiceErrorEnum.NEW_CATEGORY_SELECTED.name){
+            if (result.exception.message == ServiceErrorEnum.NEW_CATEGORY_SELECTED.name) {
                 _model.value = UiModel.CategoryError
             }
-            _model.value = result.exception.message?.let { UiModel.Error(it) }
+            _model.value = UiModel.Error(result.exception.message ?: "")
         }
     }
 
@@ -60,10 +60,10 @@ class MoviesViewModel(
         if (result is Result.Success) {
             _model.value = UiModel.Content(result.data)
         } else if (result is Result.Error) {
-            if(result.exception.message == ServiceErrorEnum.NEW_CATEGORY_SELECTED.name){
+            if (result.exception.message == ServiceErrorEnum.NEW_CATEGORY_SELECTED.name) {
                 _model.value = UiModel.CategoryError
             }
-            _model.value = result.exception.message?.let { UiModel.Error(it) }
+            _model.value = UiModel.Error(result.exception.message ?: "")
         }
     }
 
