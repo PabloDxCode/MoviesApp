@@ -16,10 +16,10 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val dataModule = module {
-    single(named("apiKey")) { "85a7b9637aaeff8978059b6e28822b43" }
+    single(named("apiKey")) { BuildConfig.MOVIES_API_KEY }
     single(named("baseUrl")) { "https://api.themoviedb.org/3/" }
 
-    single { MoviesDB.build(get(), "movies") }
+    single { MoviesDB.build(get(), BuildConfig.MOVIE_DB_NAME) }
     single<MoviesApiConfig> { MoviesApiConfigImpl(get(named("baseUrl"))) }
 
     factory<MovieDataSource> { MovieDataSourceImpl(get(named("apiKey")), get()) }
@@ -27,8 +27,18 @@ val dataModule = module {
 
     single(named("dataDispatcher")) { Dispatchers.IO }
     factory<LocalMovieDataSource> { LocalMovieDataSourceImpl(get(), get(named("dataDispatcher"))) }
-    factory<LocalTvShowDataSource> { LocalTvShowDataSourceImpl(get(), get(named("dataDispatcher"))) }
-    factory<LocalDetailDataSource> { LocalDetailDataSourceImpl(get(), get(named("dataDispatcher"))) }
+    factory<LocalTvShowDataSource> {
+        LocalTvShowDataSourceImpl(
+            get(),
+            get(named("dataDispatcher"))
+        )
+    }
+    factory<LocalDetailDataSource> {
+        LocalDetailDataSourceImpl(
+            get(),
+            get(named("dataDispatcher"))
+        )
+    }
 
     factory<MoviesRepository> { MoviesRepositoryImpl(get(), get()) }
     factory<TvShowsRepository> { TvShowsRepositoryImpl(get(), get()) }

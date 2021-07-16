@@ -4,6 +4,14 @@ plugins {
     id 'kotlin-kapt'
 }
 
+def MOVIE_DB_NAME = '"' + dbName + '"' ?: '"NO MOVIE DB NAME"'
+def MOVIES_API_KEY = '"' + apiKey + '"' ?: '"NO MOVIES API KEY"'
+
+android.buildTypes.each { type ->
+    type.buildConfigField 'String', 'MOVIE_DB_NAME', MOVIE_DB_NAME
+    type.buildConfigField 'String', 'MOVIES_API_KEY', MOVIES_API_KEY
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
