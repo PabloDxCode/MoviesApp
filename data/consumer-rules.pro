@@ -1,0 +1,2 @@
+-keep class com.pablogd.data.models.* { *; }
+-keep class com.pablogd.data.models.response.* { *; }
