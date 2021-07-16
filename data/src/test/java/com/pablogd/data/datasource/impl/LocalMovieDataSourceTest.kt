@@ -1,10 +1,10 @@
-package com.pablogd.data.datasource
+package com.pablogd.data.datasource.impl
 
 import com.nhaarman.mockitokotlin2.whenever
 import com.pablogd.data.common.mockedMovie
 import com.pablogd.data.database.MoviesDB
 import com.pablogd.data.database.daos.MovieDao
-import com.pablogd.data.datasource.impl.LocalMovieDataSourceImpl
+import com.pablogd.data.datasource.LocalMovieDataSource
 import com.pablogd.data.mappers.toMovieEntity
 import com.pablogd.domain.models.Movie
 import kotlinx.coroutines.Dispatchers

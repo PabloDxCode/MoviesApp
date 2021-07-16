@@ -1,10 +1,10 @@
-package com.pablogd.data.datasource
+package com.pablogd.data.datasource.impl
 
 import com.nhaarman.mockitokotlin2.whenever
 import com.pablogd.data.common.mockedTvShow
 import com.pablogd.data.database.MoviesDB
 import com.pablogd.data.database.daos.TvShowDao
-import com.pablogd.data.datasource.impl.LocalTvShowDataSourceImpl
+import com.pablogd.data.datasource.LocalTvShowDataSource
 import com.pablogd.data.mappers.toTvShowEntity
 import com.pablogd.domain.models.TvShow
 import kotlinx.coroutines.Dispatchers

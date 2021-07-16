@@ -1,11 +1,11 @@
-package com.pablogd.data.datasource
+package com.pablogd.data.datasource.impl
 
 import com.nhaarman.mockitokotlin2.whenever
 import com.pablogd.data.common.mockedMovie
 import com.pablogd.data.database.MoviesDB
 import com.pablogd.data.database.daos.DetailDao
 import com.pablogd.data.database.entities.DetailEntity
-import com.pablogd.data.datasource.impl.LocalDetailDataSourceImpl
+import com.pablogd.data.datasource.LocalDetailDataSource
 import com.pablogd.data.mappers.toDetailEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking

@@ -7,6 +7,7 @@ import com.pablogd.data.repositories.DetailRepositoryImpl
 import com.pablogd.data.repositories.MoviesRepositoryImpl
 import com.pablogd.data.repositories.TvShowsRepositoryImpl
 import com.pablogd.data.server.MoviesApiConfig
+import com.pablogd.data.server.MoviesApiConfigImpl
 import com.pablogd.domain.repositories.DetailRepository
 import com.pablogd.domain.repositories.MoviesRepository
 import com.pablogd.domain.repositories.TvShowsRepository
@@ -19,7 +20,7 @@ val dataModule = module {
     single(named("baseUrl")) { "https://api.themoviedb.org/3/" }
 
     single { MoviesDB.build(get(), "movies") }
-    single { MoviesApiConfig(get(named("baseUrl"))) }
+    single<MoviesApiConfig> { MoviesApiConfigImpl(get(named("baseUrl"))) }
 
     factory<MovieDataSource> { MovieDataSourceImpl(get(named("apiKey")), get()) }
     factory<TvShowDataSource> { TvShowDataSourceImpl(get(named("apiKey")), get()) }
