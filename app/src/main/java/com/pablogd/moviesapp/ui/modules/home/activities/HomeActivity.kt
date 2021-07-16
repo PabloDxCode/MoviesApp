@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.google.android.material.navigation.NavigationBarView
 import com.pablogd.moviesapp.R
 import com.pablogd.moviesapp.databinding.ActivityHomeBinding
@@ -32,14 +33,16 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         viewPagerHome.offscreenPageLimit = 3
         viewPagerHome.setPageTransformer(null)
         viewPagerHome.isUserInputEnabled = false
-        viewPagerHome.adapter = HomePagerAdapter(supportFragmentManager, lifecycle,
-            arrayListOf(MoviesFragment(), TvShowFragment(), SettingsFragment()))
+        viewPagerHome.adapter = HomePagerAdapter(
+            supportFragmentManager, lifecycle,
+            arrayListOf(MoviesFragment(), TvShowFragment(), SettingsFragment())
+        )
 
         bnvHome.setOnItemSelectedListener(this@HomeActivity)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.menu_movies -> binding.viewPagerHome.currentItem = 0
             R.id.menu_tv_shows -> binding.viewPagerHome.currentItem = 1
             R.id.menu_settings -> binding.viewPagerHome.currentItem = 2
@@ -53,7 +56,14 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
     }
 
     override fun setTitle(title: String) {
-        binding.toolbar.title = if(title.isEmpty()) getString(R.string.app_name) else title
+        binding.toolbar.title = if (title.isEmpty()) getString(R.string.app_name) else title
     }
 
+    override fun showProgress() {
+        binding.progress.visibility = View.VISIBLE
+    }
+
+    override fun hideProgress() {
+        binding.progress.visibility = View.GONE
+    }
 }
