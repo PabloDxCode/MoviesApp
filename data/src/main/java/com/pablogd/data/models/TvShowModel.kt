@@ -1,19 +1,21 @@
 package com.pablogd.data.models
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class TvShowModel(
     val id: Int,
     val name: String,
-    @SerializedName("poster_path") val posterPath: String?,
-    @SerializedName("backdrop_path") val backdropPath: String?,
-    @SerializedName("first_air_date") val firstAirDate: String,
-    @SerializedName("genre_ids") val genreIds: List<Int>,
-    @SerializedName("origin_country") val originCountry: List<String>,
-    @SerializedName("original_language") val originalLanguage: String,
-    @SerializedName("original_name") val originalName: String,
+    @Json(name = "poster_path") val posterPath: String?,
+    @Json(name = "backdrop_path") val backdropPath: String?,
+    @Json(name = "first_air_date") val firstAirDate: String,
+    @Json(name = "genre_ids") val genreIds: List<Int>,
+    @Json(name = "origin_country") val originCountry: List<String>,
+    @Json(name = "original_language") val originalLanguage: String,
+    @Json(name = "original_name") val originalName: String,
     val overview: String,
     val popularity: Double,
-    @SerializedName("vote_average") val voteAverage: Double,
-    @SerializedName("vote_count") val voteCount: Int
+    @Json(name = "vote_average") val voteAverage: Double,
+    @Json(name = "vote_count") val voteCount: Int
 )
