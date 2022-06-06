@@ -4,3 +4,5 @@ Aplicación para ver peliculas y series categorizadas por popular y mejor califi
 
 ## Faltante:
 - Mejorar pruebas unitarias de los viewmodels usando koin test para generar instancias
+
+Test
